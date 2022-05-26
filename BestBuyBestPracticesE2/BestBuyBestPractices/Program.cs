@@ -17,17 +17,22 @@ namespace BestBuyBestPractices
 
             string connString = config.GetConnectionString("DefaultConnection");
             IDbConnection conn = new MySqlConnection(connString);
-            var departmentRepo = new DapperDepartmentRepository(conn);
+            var repo = new DapperProductRepository(conn);
 
-            departmentRepo.InsertDepartment("test");
-            var departments = departmentRepo.GetAllDepartments();
-            departmentRepo.DeleteDepartment(8,10);
+            repo.CreateProduct("Bacon Stove", 19.99, 34);
+
+
+            var product = repo.GetAllProduct();
            
 
-            foreach (var item in departments)
+            foreach (var item in product)
             {
-                Console.WriteLine(item.DepartmentID);
+                Console.WriteLine(item.ProductID);
                 Console.WriteLine(item.Name);
+                Console.WriteLine(item.Price);
+                Console.WriteLine(item.CategoryID);
+                Console.WriteLine(item.OnSale);
+                Console.WriteLine(item.StockLevel);
                 Console.WriteLine();
             }
 
